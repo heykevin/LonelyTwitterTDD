@@ -1,18 +1,25 @@
 package ca.ualberta.cs.lonelytwitter.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ca.ualberta.cs.lonelytwitter.AbstractTweet;
 
-public class TweetListModel {
+public class TweetListModel
+{
 
 	private List<AbstractTweet> tweets = new ArrayList<AbstractTweet>();
 
-	public TweetListModel() {
+	public TweetListModel()
+	{
+
 	}
-	
-	public TweetListModel(List<AbstractTweet> tweets) {
+
+	public TweetListModel(List<AbstractTweet> tweets)
+	{
+
 		this.tweets = tweets;
 	}
 
@@ -23,9 +30,19 @@ public class TweetListModel {
 	 * @param tweet
 	 *            Tweet to be appended to this list
 	 */
-	public void addTweet(AbstractTweet tweet) {
+	public void addTweet(AbstractTweet tweet)
+	{
+
 		// TODO: Add only when it is not a duplicate
-		tweets.add(tweet);
+
+		if (tweets.contains(tweet))
+		{
+			throw new IllegalArgumentException();
+		} else
+		{
+			tweets.add(tweet);
+		}
+
 	}
 
 	/**
@@ -33,9 +50,11 @@ public class TweetListModel {
 	 * 
 	 * @return the number of tweets in this list
 	 */
-	public int getCount() {
+	public int getCount()
+	{
+
 		// TODO: return real count
-		return 0;
+		return tweets.size();
 	}
 
 	/**
@@ -45,9 +64,11 @@ public class TweetListModel {
 	 *            Tweet whose presence in this list is to be tested
 	 * @return true if this list contains the specified element
 	 */
-	public boolean hasTweet(AbstractTweet tweet) {
+	public boolean hasTweet(AbstractTweet tweet)
+	{
+
 		// TODO: Find if the tweet already exists
-		return false;
+		return tweets.contains(tweet);
 	}
 
 	/**
@@ -57,8 +78,10 @@ public class TweetListModel {
 	 * @param tweet
 	 *            Tweet to be removed from this list, if present.
 	 */
-	public void removeTweet(AbstractTweet tweet) {
-		// TODO: Remove tweet
+	public void removeTweet(AbstractTweet tweet)
+	{
+
+		tweets.remove(tweet);
 	}
 
 	/**
@@ -67,9 +90,20 @@ public class TweetListModel {
 	 * 
 	 * @return an array containing the tweets of the list.
 	 */
-	public AbstractTweet[] getTweets() {
+	public AbstractTweet[] getTweets()
+	{
 		// TODO: return sorted list of tweets
-		return null;
+
+	Collections.sort(tweets, new Comparator<AbstractTweet>(){
+	
+		public int compare(AbstractTweet tweet1, AbstractTweet tweet2)
+		{
+			return tweet1.getTweetDate().compareTo(tweet2.getTweetDate());
+		}
+	});
+	
+	List<AbstractTweet> cows = tweets;
+	return cows.toArray(new AbstractTweet[this.getCount()]);
 	}
 
 	/**
@@ -77,7 +111,9 @@ public class TweetListModel {
 	 * 
 	 * @return The list of tweets.
 	 */
-	public List<AbstractTweet> getList() {
+	public List<AbstractTweet> getList()
+	{
+
 		return tweets;
 	}
 
@@ -85,7 +121,9 @@ public class TweetListModel {
 	 * Removes all of the elements from this list. The list will be empty after
 	 * this call returns.
 	 */
-	public void clear() {
+	public void clear()
+	{
+
 		tweets.clear();
 	}
 }
